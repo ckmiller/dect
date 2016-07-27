@@ -6,7 +6,7 @@ CFLAGS = -I/opt/local/include/eigen3 -std=c++11
 ifdef DEBUG
 CFLAGS += -O0 -g -DDEBUG
 else
-CFLAGS += -O3 -fasm-blocks -ffast-math -funroll-loops -fstrict-aliasing -DEIGEN_NO_DEBUG
+CFLAGS += -O2 -fasm-blocks -ffast-math -funroll-loops -fstrict-aliasing -DEIGEN_NO_DEBUG
 endif
 
 # build products
