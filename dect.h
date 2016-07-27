@@ -70,7 +70,7 @@ public:
     
     // setup
     void alloc(); // allocates storage
-    void initBasis(const Eigen::VectorXd &base, double offset); // constructs initial basis
+    void initBasis(const Eigen::VectorXd &base, double r); // constructs initial basis
     void initModel(const std::function<Eigen::VectorXd(const Eigen::Ref<const Eigen::VectorXd>)> &pfunc); // constructs initial models and registers func
     
     // convenience

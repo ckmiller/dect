@@ -58,7 +58,7 @@ void DectModel::alloc()
         m.resize(n_dim, n_dim);
 }
 
-void DectModel::initBasis(const VectorXd &base, double offset)
+void DectModel::initBasis(const VectorXd &base, double r)
 {
     assert(base.size() == n_dim && "base vector must be the same size as n_dim");
     
@@ -74,24 +74,24 @@ void DectModel::initBasis(const VectorXd &base, double offset)
     // loop over every variable
     for (int i = 0; i < n_dim; i++)
     {
-        // set up initial points in x matrix as +/- offset
-        xpt(i, 2*i)     =  offset;
-        xpt(i, 2*i+1)   = -offset;
+        // set up initial points in x matrix as +/- r
+        xpt(i, 2*i +1)     =  r;
+        xpt(i, 2*i+1 +1)   = -r;
         
         // set elements of xi matrix
-        ximat(i, 2*i)   =  0.5 / offset;
-        ximat(i, 2*i+1) = -0.5 / offset;
+        ximat(i, 2*i +1)   =  0.5 / r;
+        ximat(i, 2*i+1 +1) = -0.5 / r;
         
         // and z matrix
-        zmat(0, i)      = -sqrt(2.0) / (offset * offset);
-        zmat(2*i, i)    = 1.0 / (sqrt(2.0) * offset * offset);
-        zmat(2*i+1, i)  = 1.0 / (sqrt(2.0) * offset * offset);
+        zmat(0, i)         = -sqrt(2.0) / (r * r);
+        zmat(2*i +1, i)    = 1.0 / (sqrt(2.0) * r * r);
+        zmat(2*i+1 +1, i)  = 1.0 / (sqrt(2.0) * r * r);
         
         // nothing happens to ups matrix, it stays zero
     }
     
     // initial trust-region radius is the offset
-    delta = offset;
+    delta = r;
 }
 
 void DectModel::initModel(const std::function<VectorXd(const Ref<const VectorXd>)> &pfunc)
